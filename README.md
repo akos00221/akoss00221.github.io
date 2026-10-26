@@ -4,7 +4,7 @@
 * **Név:** Kálmán Ákos Benjámin
 * **Neptun kód:** JJYCLU
 * **Szak / Képzés:** Programtervező informatikus BSc (ELTE IK)
-* **Bemutató videó linkje (OneDrive):** [Videó megtekintése]([https://...](https://ikelte-my.sharepoint.com/:v:/g/personal/jjyclu_inf_elte_hu/IQBGjoGhub6CTbYaGGMJFntFASaYst4qFz9cTFsRWj8CUkY?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=unWPbk))
+* **Bemutató videó linkje (OneDrive):** [Videó megtekintése](https://ikelte-my.sharepoint.com/:v:/g/personal/jjyclu_inf_elte_hu/IQBGjoGhub6CTbYaGGMJFntFASaYst4qFz9cTFsRWj8CUkY?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=unWPbk)
 * **A futtatható program linkje (Vercel, Netlify, Firebase, stb.):** [Élő alkalmazás megnyitása](https://akos00221.github.io/akoss00221.github.io/)
 
 ---
