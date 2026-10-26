@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vasúti forgalomirányító szimulátor</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <main id="fomenu-kepernyo" class="kepernyo fomenu-kontener">
+        <div class="hatter-elmosas"></div>
+
+        <aside class="ablak lebego-panel bal-panel">
+            <div class="ablak-fejlec">
+                <span>Játékszabályzat</span>
+                <div class="ablak-vezerlok">
+                    <span class="kis-gomb">_</span>
+                    <span class="kis-gomb">□</span>
+                    <span class="kis-gomb">✕</span>
+                </div>
+            </div>
+            <div class="ablak-belso szabaly-doboz">
+                <p><strong>Cél:</strong> Irányítsd az érkező vonatokat a színüknek megfelelő peronra ütközés és kisiklás nélkül!</p>
+                <ul>
+                    <li><strong>Bal kattintás váltón (V1, V2...):</strong> Átállítja a váltó kimeneti irányát a következő vágányra.</li>
+                    <li><strong>Bal kattintás jelzőn (J1, J2...):</strong> Átkapcsolja a lámpát <span class="szoveg-piros">Tilos (piros)</span> és <span class="szoveg-zold">Szabad (zöld)</span> között.</li>
+                    <li><strong>Jobb kattintás vonaton:</strong> Kézi vészfék (<span class="szoveg-sarga">STOP</span>) be- és kikapcsolása.</li>
+                    <li><strong>Ütközésveszély:</strong> 75 képponton belül szaggatott kör figyelmeztet. Ha két vonat összeér, vége a játéknak!</li>
+                    <li><strong>Hibapontok:</strong> Rossz színű peronra érkezés vagy nyitott vágányvégre futás (kisiklás) növeli a hibák számát.</li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="fomenu-kozep">
+            <div class="ablak cim-ablak">
+                <h1 class="fomenu-cim">
+                    Vasúti forgalomirányító szimulátor
+                </h1>
+            </div>
+
+            <section class="ablak fomenu-doboz">
+                <div class="ablak-fejlec">
+                    <span>Diszpécser terminál beállítása</span>
+                    <div class="ablak-vezerlok">
+                        <span class="kis-gomb">_</span>
+                        <span class="kis-gomb">□</span>
+                        <span class="kis-gomb">✕</span>
+                    </div>
+                </div>
+                <div class="ablak-belso fomenu-gombok">
+                    <div class="mezocsoport">
+                        <label for="jatekos-nev-input">Játékos neve:</label>
+                        <input
+                            type="text"
+                            id="jatekos-nev-input"
+                            class="szoveg-mezo"
+                            placeholder="Írd be a neved..."
+                            maxlength="25"
+                        >
+                        <div id="nev-hiba-uzenet" class="hiba-uzenet rejtett">
+                            Kérlek add meg a játékos nevét!
+                        </div>
+                    </div>
+
+                    <button type="button" id="inditas-gomb" class="gomb gomb-kiemelt">
+                        Szimuláció Indítása
+                    </button>
+
+                    <div class="lenyilo-kontener">
+                        <button type="button" id="palya-lenyilo-gomb" class="gomb lenyilo-gomb">
+                            <span id="kivalasztott-palya-szoveg">1. szint: Könnyű</span>
+                            <span id="lenyilo-nyil">▼</span>
+                        </button>
+
+                        <div id="palya-lista" class="palya-lista rejtett">
+                            <button type="button" class="palya-elem aktiv-palya" data-szint="1">
+                                <strong>1. szint: Kitérő vágány jelzőkkel (Könnyű)</strong>
+                                <span>1 belépés, 2 váltó, 3 jelző, 2 végállomás, 4 vonat</span>
+                            </button>
+                            <button type="button" class="palya-elem" data-szint="2">
+                                <strong>2. szint: Rendező-pályaudvar (Közepes)</strong>
+                                <span>2 belépés, 3 váltó, 4 jelző, 3 célállomás, 5 vonat</span>
+                            </button>
+                            <button type="button" class="palya-elem" data-szint="3">
+                                <strong>3. szint: Fejpályaudvari csúcsforgalom (Nehéz)</strong>
+                                <span>2 fővonal, 4 váltó, 5 jelző, 4 peron, 6 vonat</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="button" id="betoltes-gomb" class="gomb">
+                        Mentett játékállás betöltése
+                    </button>
+
+                    <div id="mentes-info-szoveg" class="mentes-info">
+                        Nincs mentett játékállás.
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <aside class="ablak lebego-panel jobb-panel">
+            <div class="ablak-fejlec">
+                <span>Ranglista</span>
+                <div class="ablak-vezerlok">
+                    <span class="kis-gomb">_</span>
+                    <span class="kis-gomb">□</span>
+                    <span class="kis-gomb">✕</span>
+                </div>
+            </div>
+            <div class="ablak-belso ranglista-doboz">
+                <div class="ranglista-ful-sav" id="ranglista-fulek">
+                    <button type="button" class="ful-gomb aktiv-ful" data-rang-szint="1">1. szint</button>
+                    <button type="button" class="ful-gomb" data-rang-szint="2">2. szint</button>
+                    <button type="button" class="ful-gomb" data-rang-szint="3">3. szint</button>
+                </div>
+                
+                <div class="tablazat-keret">
+                    <table class="ranglista-tablazat">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Név</th>
+                                <th>Idő</th>
+                                <th>Hiba</th>
+                                <th>Dátum</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ranglista-torzs"></tbody>
+
+                    </table>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <section id="jatek-kepernyo" class="kepernyo jatek-kontener rejtett">
+        <div class="ablak jatek-ablak">
+            <div class="ablak-fejlec">
+                <span>Vasúti Forgalomirányító szimulátor</span>
+                
+                <div class="ablak-vezerlok">
+                    <span class="kis-gomb">_</span>
+                    <span class="kis-gomb">□</span>
+                    <span class="kis-gomb">✕</span>
+                </div>
+            </div>
+
+            <div class="ablak-belso jatek-belso">
+                <div class="diszpecser-fejlec">
+                    <div class="adatok-sav">
+                        <div class="adat-elem">
+                            <span class="adat-cimke">Játékos:</span>
+                            <span id="kijelzo-nev" class="adat-ertek">-</span>
+                        </div>
+
+                        <div class="adat-elem">
+                            <span class="adat-cimke">Pálya:</span>
+                            <span id="kijelzo-palya" class="adat-ertek">-</span>
+                        </div>
+
+                        <div class="adat-elem">
+                            <span class="adat-cimke">Idő:</span>
+                            <span id="kijelzo-ido" class="adat-ertek">00:00</span>
+                        </div>
+
+                        <div class="adat-elem">
+                            <span class="adat-cimke">Célba ért:</span>
+                            <span id="kijelzo-forgalom" class="adat-ertek szoveg-zold">0 / 0</span>
+                        </div>
+
+                        <div class="adat-elem">
+                            <span class="adat-cimke">Hibák:</span>
+                            <span id="kijelzo-hibak" class="adat-ertek szoveg-piros">0</span>
+                        </div>
+
+                    </div>
+
+                    <div class="vezerlo-gombok">
+                        <button type="button" id="szunet-gomb" class="diszpecser-gomb">Szünet</button>
+                        <button type="button" id="ujrainditas-gomb" class="diszpecser-gomb">Újraindítás</button>
+                        <button type="button" id="mentes-gomb" class="diszpecser-gomb">Mentés</button>
+                        <button type="button" id="fomenu-gomb" class="diszpecser-gomb">Főmenü</button>
+                    </div>
+
+                </div>
+
+                <div class="vaszon-keret">
+                    <canvas id="vasut-vaszon" width="1080" height="580"></canvas>
+                </div>
+
+                <div class="also-allapot-sav">
+                    <div class="allapot-mezo" id="allapot-uzenet">Szimuláció elindítva.</div>
+                    <div class="allapot-mezo iranyitas-tipp">Bal klikk: Váltó / Jelző | Jobb klikk vonaton: Vészfék (STOP)</div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <div id="eredmeny-modal" class="modal-hatter rejtett">
+        <div class="ablak modal-doboz">
+            <div class="ablak-fejlec">
+                <span id="modal-cim">Játék vége</span>
+                <div class="ablak-vezerlok">
+                    <span class="kis-gomb">✕</span>
+                </div>
+            </div>
+            <div class="ablak-belso modal-belso">
+                <p id="modal-szoveg" class="modal-leiras"></p>
+                <div class="modal-adatok">
+                    <div>Játékos: <strong id="modal-nev">-</strong></div>
+                    <div>Eltelt idő: <strong id="modal-ido">00:00</strong></div>
+                    <div>Célba ért vonatok: <strong id="modal-celbaert">0 / 0</strong></div>
+                    <div>Hibák száma: <strong id="modal-hibak">0</strong></div>
+                </div>
+                <div class="modal-gombok">
+                    <button type="button" id="modal-ujra-gomb" class="gomb gomb-kiemelt">OK / Újra</button>
+                    <button type="button" id="modal-fomenu-gomb" class="gomb">Főmenü</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module" src="./js/app.js"></script>
+</body>
+</html>
