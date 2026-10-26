@@ -5,7 +5,7 @@
 * **Neptun kód:** JJYCLU
 * **Szak / Képzés:** Programtervező informatikus BSc (ELTE IK)
 * **Bemutató videó linkje (OneDrive):** [Videó megtekintése](https://...)
-* **A futtatható program linkje (Vercel, Netlify, Firebase, stb.):** [Élő alkalmazás megnyitása](https://...)
+* **A futtatható program linkje (Vercel, Netlify, Firebase, stb.):** [Élő alkalmazás megnyitása](https://akos00221.github.io/akoss00221.github.io/)
 
 ---
 
